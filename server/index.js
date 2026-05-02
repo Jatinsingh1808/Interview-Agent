@@ -11,7 +11,7 @@ import paymentRouter from "./routes/payment.route.js"
 
 const app = express()
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin:"http://localhost:5173",
     credentials:true
 }))
 
@@ -23,15 +23,8 @@ app.use("/api/user", userRouter)
 app.use("/api/interview" , interviewRouter)
 app.use("/api/payment" , paymentRouter)
 
-const PORT = process.env.PORT || 8000
-
-// Initialize DB Connection for serverless
-connectDb()
-
-if (process.env.NODE_ENV !== "production") {
-    app.listen(PORT , ()=>{
-        console.log(`Server running on port ${PORT}`)
-    })
-}
-
-export default app;
+const PORT = process.env.PORT || 6000
+app.listen(PORT , ()=>{
+    console.log(`Server running on port ${PORT}`)
+    connectDb()
+})
