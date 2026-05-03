@@ -1,6 +1,18 @@
 import fs from "fs"
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
+
+// Polyfills for Vercel environment to prevent pdf.js (used by pdf-parse) from crashing
+if (typeof global.DOMMatrix === 'undefined') {
+    global.DOMMatrix = class DOMMatrix {};
+}
+if (typeof global.ImageData === 'undefined') {
+    global.ImageData = class ImageData {};
+}
+if (typeof global.Path2D === 'undefined') {
+    global.Path2D = class Path2D {};
+}
+
 const pdfParse = require("pdf-parse");
 import { askAi } from "../services/openRouter.service.js";
 import User from "../models/user.model.js";
