@@ -25,7 +25,12 @@ export const googleAuth = async (req,res) => {
 
 
     } catch (error) {
-        return res.status(500).json({message:`Google auth error ${error}`})
+        console.error("Detailed Google Auth error:", error);
+        return res.status(500).json({
+            message: "Google auth error",
+            error: error.message,
+            stack: process.env.NODE_ENV === "production" ? null : error.stack
+        })
     }
     
 }
